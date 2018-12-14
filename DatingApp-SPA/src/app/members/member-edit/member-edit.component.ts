@@ -15,6 +15,7 @@ export class MemberEditComponent implements OnInit {
   // user ViewChild decorator to access the form
   @ViewChild('editForm') editForm: NgForm;
   user: User;
+  photoUrl: string;
 
   // Confirm when  close browser
   @HostListener('window:beforeunload', ['$event'])
@@ -33,6 +34,8 @@ export class MemberEditComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.user = data['user'];
     });
+
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   updateUser() {
@@ -46,7 +49,7 @@ export class MemberEditComponent implements OnInit {
     });
   }
 
-  updateMainPhoto(photoUrl) {
+  updateMainPhoto(photoUrl: string) {
     this.user.photoUrl = photoUrl;
   }
 }
